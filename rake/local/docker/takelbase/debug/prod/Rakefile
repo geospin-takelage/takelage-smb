@@ -7,7 +7,9 @@ namespace :local do
     namespace :takelbase do
       namespace :debug do
         namespace :prod do |env|
-          @cmd_local_docker_takelbase_list.except(:features, :verify).each do |task, command|
+          @cmd_local_docker_takelbase_list.each do |task, command|
+            next if [:features, :verify].include? task
+
             desc "#{task} #{env.scope.head} image locally"
             task task do
               @commands << format(
