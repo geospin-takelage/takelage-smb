@@ -595,5 +595,23 @@
         "origin": "IMPORTED",
         "originallySharedDir": "rake/dockerhub/takelbase/project/prod/registry"
     },
+    "takelage.rake/rake/git@0.0.7": {
+        "files": [
+            {
+                "name": "README.bit",
+                "relativePath": "README.bit",
+                "test": false
+            },
+            {
+                "name": "Rakefile",
+                "relativePath": "Rakefile",
+                "test": false
+            }
+        ],
+        "mainFile": "README.bit",
+        "rootDir": "rake/git",
+        "origin": "IMPORTED",
+        "originallySharedDir": "rake/git"
+    },
     "version": "14.8.8"
 }
