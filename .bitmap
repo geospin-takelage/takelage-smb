@@ -613,5 +613,23 @@
         "origin": "IMPORTED",
         "originallySharedDir": "rake/git"
     },
+    "takelage.rake/rake/local/docker/takelbase/debug/prod@0.0.1": {
+        "files": [
+            {
+                "name": "README.bit",
+                "relativePath": "README.bit",
+                "test": false
+            },
+            {
+                "name": "Rakefile",
+                "relativePath": "Rakefile",
+                "test": false
+            }
+        ],
+        "mainFile": "README.bit",
+        "rootDir": "rake/local/docker/takelbase/debug/prod",
+        "origin": "IMPORTED",
+        "originallySharedDir": "rake/local/docker/takelbase/debug/prod"
+    },
     "version": "14.8.8"
 }
