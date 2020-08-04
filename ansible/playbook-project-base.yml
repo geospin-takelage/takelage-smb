@@ -5,4 +5,7 @@
     - takel-base
     - takel-root
     - takel-anarchism
+    - takel-unattended-upgrades
+    - takel-users
+    - takel-ssh
     - takel-cleanup
