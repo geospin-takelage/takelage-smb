@@ -1,3 +1,5 @@
+ansible/group_vars/private
+ansible/group_vars/users
 ansible-devel.log
 .DS_Store
 .idea
