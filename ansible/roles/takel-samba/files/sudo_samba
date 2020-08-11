@@ -1,0 +1,1 @@
+%samba ALL=(ALL) NOPASSWD: /usr/bin/smbpasswd, /usr/bin/passwd

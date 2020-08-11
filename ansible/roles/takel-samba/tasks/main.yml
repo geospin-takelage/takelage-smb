@@ -12,3 +12,4 @@
     - takel
     - takel_samba
     - takel_samba_timemachine_scripts
+  when: takel_samba_timemachine

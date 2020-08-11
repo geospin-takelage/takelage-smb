@@ -1,0 +1,172 @@
+#
+# Sample configuration file for the Samba suite for Debian GNU/Linux.
+#
+#
+# This is the main Samba configuration file. You should read the
+# smb.conf(5) manual page in order to understand the options listed
+# here. Samba has a huge number of configurable options most of which
+# are not shown in this example
+#
+# Some options that are often worth tuning have been included as
+# commented-out examples in this file.
+#  - When such options are commented with ";", the proposed setting
+#    differs from the default Samba behaviour
+#  - When commented with "#", the proposed setting is the default
+#    behaviour of Samba but the option is considered important
+#    enough to be mentioned here
+#
+# NOTE: Whenever you modify this file you should run the command
+# "testparm" to check that you have not made any basic syntactic
+# errors.
+
+#======================= Global Settings =======================
+
+[global]
+
+## Browsing/Identification ###
+
+   workgroup = {{ takel_samba_workgroup }}
+
+
+#### Networking ####
+
+{% if takel_samba_interfaces|length > 0 %}
+  interfaces = {{ takel_samba_interfaces }}
+
+{% endif %}
+
+#### Debugging/Accounting ####
+
+   log file = {{ takel_samba_log_file }}
+   max log size = {{ takel_samba_max_log_size }}
+   logging = {{ takel_samba_logging }}
+   panic action = {{ takel_samba_panic_action }}
+
+
+####### Authentication #######
+
+   server role = {{ takel_samba_server_role }}
+   obey pam restrictions = {{ takel_samba_obey_pam_restrictions }}
+   unix password sync = {{ takel_samba_unix_password_sync }}
+   passwd program = {{ takel_samba_passwd_program }}
+   passwd chat = {{ takel_samba_passwd_chat }}
+   pam password change = {{ takel_samba_pam_password_change }}
+   map to guest = {{ takel_samba_map_to_guest }}
+
+
+#======================= Share Definitions =======================
+
+{% if takel_samba_homes %}
+[homes]
+   comment = {{ takel_samba_homes_comment }}
+   browseable = {{ takel_samba_homes_browseable }}
+   read only = {{ takel_samba_homes_read_only }}
+   create mask = {{ takel_samba_homes_create_mask }}
+   directory mask = {{ takel_samba_homes_directory_mask }}
+   valid users = {{ takel_samba_homes_valid_users }}
+
+{% endif %}
+{% if takel_samba_printers %}
+[printers]
+   comment = {{ takel_samaba_printers_comment }}
+   browseable = {{ takel_samaba_printers_browseable }}
+   path = {{ takel_samaba_printers_path }}
+   printable = {{ takel_samaba_printers_printable }}
+   guest ok = {{ takel_samaba_printers_guest_ok }}
+   read only = {{ takel_samaba_printers_read_only }}
+   create mask = {{ takel_samaba_printers_create_mask }}
+
+{% endif %}
+{% if takel_samba_print_windows %}
+[print$]
+   comment = {{ takel_samba_print_windows_comment }}
+   path = {{ takel_samba_print_windows_path }}
+   browseable = {{ takel_samba_print_windows_browseable }}
+   read only = {{ takel_samba_print_windows_read_only }}
+   guest ok = {{ takel_samba_print_windows_guest_ok }}
+
+{% endif %}
+
+#### TimeMachine #####
+
+{% if takel_samba_timemachine %}
+{% for user in takel_samba_timemachine_users.keys() %}
+[{{ user }}]
+    comment = Timemachine share for {{ user }}
+
+    valid users = {{ user }}
+    available = yes
+
+    writeable = yes
+    read only = no
+
+    create mode = 0700
+    directory mode = 0700
+    force create mode = 0700
+    force directory mode = 0700
+
+    browsable = yes
+    guest ok = yes
+
+    spotlight = yes
+    vfs objects = catia fruit streams_xattr
+    fruit:aapl = yes
+    fruit:time machine = yes
+
+    path = {{ takel_samba_timemachine_root }}/{{ user }}
+
+{% endfor %}
+{% endif %}
+
+
+{% if takel_samba_shares|length > 0 %}
+###
+# samba shares
+###
+{% for share in takel_samba_shares %}
+[{{ share.name }}]
+{% if share.comment is defined %}
+  comment = {{ share.comment }}
+{% endif %}
+{% if share.vfs_objects is defined and share.vfs_objects|length > 0 %}
+  vfs objects = {% for obj in share.vfs_objects %}{{obj.name}}{% endfor %}
+
+{% for obj in share.vfs_objects %}
+{% if obj.options is defined %}
+{% if obj.options|length > 0 %}
+{% for opt in obj.options %}
+  {{ obj.name }}:{{ opt.name }} = {{ opt.value }}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endfor %}{% endif %}
+  path = {{ share.path|default([takel_samba_shares_root,share.name]|join('/')) }}
+  public = {{ share.public|default('no') }}
+{% if share.valid_users is defined %}
+  valid users= {{ share.valid_users }}
+{% endif %}
+{% if share.write_list is defined %}
+  write list = {{ share.write_list }}
+{% endif %}
+{% if share.group is defined %}
+  force group = {{ share.group }}
+{% endif %}
+{% if share.guest_ok is defined %}
+  guest ok = {{ share.guest_ok }}
+{% endif %}
+{% if share.browseable is defined %}
+  browsable = {{ share.browseable }}
+{% endif %}
+{% if share.writable is defined %}
+  writable = {{ share.writable }}
+{% endif %}
+  create mode = {{ share.create_mode|default('0664') }}
+  force create mode = {{ share.force_create_mode|default('0664') }}
+  directory mode = {{ share.directory_mode|default('0775') }}
+  force directory mode = {{ share.force_directory_mode|default('0775') }}
+{% if share.include_file is defined %}
+  include = {{ share.include_file }}
+{% endif %}
+
+{% endfor %}
+{% endif%}

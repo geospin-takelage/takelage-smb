@@ -1,4 +1,100 @@
 ---
+takel_samba_timemachine: true
+
 takel_samba_deb_install_packages:
+  - avahi-daemon
   - samba
   - smbclient
+
+##############################
+# smb.conf
+
+# [global]
+
+## Browsing/Identification ###
+
+takel_samba_workgroup: 'WORKGROUP'
+
+#### Networking ####
+
+takel_samba_interfaces: []
+
+#### Debugging/Accounting ####
+
+takel_samba_log_file: /var/log/samba/log.%m
+takel_samba_max_log_size: 5000
+takel_samba_logging: syslog@1 file
+takel_samba_panic_action: /usr/share/samba/panic-action %d
+
+####### Authentication #######
+
+takel_samba_server_role: standalone server
+takel_samba_obey_pam_restrictions: yes
+takel_samba_unix_password_sync: yes
+takel_samba_passwd_program: /usr/bin/passwd %u
+takel_samba_passwd_chat: >-
+  *Enter\snew\s*\spassword:* %n\n
+  *Retype\snew\s*\spassword:* %n\n
+  *password\supdated\ssuccessfully* .
+takel_samba_pam_password_change: yes
+takel_samba_map_to_guest: bad user
+
+# [homes]
+
+takel_samba_homes: true
+takel_samba_homes_comment: Home Directories
+takel_samba_homes_browseable: no
+takel_samba_homes_read_only: yes
+takel_samba_homes_create_mask: 0700
+takel_samba_homes_directory_mask: 0700
+takel_samba_homes_valid_users: '%S'
+
+takel_samaba_printers: false
+takel_samaba_printers_comment: All Printers
+takel_samaba_printers_browseable: no
+takel_samaba_printers_path: /var/spool/samba
+takel_samaba_printers_printable: yes
+takel_samaba_printers_guest_ok: no
+takel_samaba_printers_read_only: yes
+takel_samaba_printers_create_mask: 0700
+
+takel_samba_print_windows: false
+takel_samba_print_windows_comment: Printer Drivers
+takel_samba_print_windows_path: /var/lib/samba/printers
+takel_samba_print_windows_browseable: yes
+takel_samba_print_windows_read_only: yes
+takel_samba_print_windows_guest_ok: no
+
+#### TimeMachine #####
+
+takel_samba_root: /srv
+takel_samba_shares_root: "{{ takel_samba_root }}/samba"
+takel_samba_timemachine_root: "{{ takel_samba_root }}/timemachine"
+
+takel_samba_timemachine_users: {}
+
+takel_samba_shares: []
+takel_samba_users: {}
+
+# smb.conf
+##############################
+
+##############################
+# avahi-daemon.conf
+
+takel_samba_avahi_use_ipv4: 'yes'
+takel_samba_avahi_use_ipv6: 'no'
+takel_samba_avahi_ratelimit_interval_usec: 1000000
+takel_samba_avahi_ratelimit_burst: 1000
+takel_samba_avahi_enable_wide_area: 'yes'
+takel_samba_avahi_publish_aaaa_on_ipv4: 'no'
+takel_samba_avahi_rlimit_core: 0
+takel_samba_avahi_rlimit_data: 8388608
+takel_samba_avahi_rlimit_fsize: 0
+takel_samba_avahi_rlimit_nofile: 768
+takel_samba_avahi_rlimit_stack: 8388608
+takel_samba_avahi_rlimit_nproc: 3
+
+# avahi-daemon.conf
+##############################
+
