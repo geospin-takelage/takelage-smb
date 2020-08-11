@@ -5,3 +5,10 @@
     - takel
     - takel_samba
     - takel_samba_install
+
+- name: (main) include timemachine-scripts tasks
+  import_tasks: timemachine-scripts.yml
+  tags:
+    - takel
+    - takel_samba
+    - takel_samba_timemachine_scripts
