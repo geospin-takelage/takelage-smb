@@ -1,0 +1,7 @@
+---
+- name: (main) include install tasks
+  import_tasks: install.yml
+  tags:
+    - takel
+    - takel_samba
+    - takel_samba_install

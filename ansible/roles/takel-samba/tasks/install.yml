@@ -1,0 +1,17 @@
+---
+- name: (install) install packages
+  package:
+    name: "{{ takel_samba_deb_install_packages }}"
+    state: present
+    update_cache: true
+
+- name: (install) copy default shell (-script) for timemachine users
+  copy:
+    src: default_shell.sh
+    dest: /usr/local/bin/
+    mode: +x
+
+- name: (install) copy smbpasswd bash complete for timemachine users
+  copy:
+    src: smbpasswd.bash
+    dest: /etc/bash_completion.d/

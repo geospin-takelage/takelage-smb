@@ -1,0 +1,4 @@
+---
+takel_samba_deb_install_packages:
+  - samba
+  - smbclient
