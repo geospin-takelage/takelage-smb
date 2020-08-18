@@ -1,0 +1,19 @@
+---
+- name: systemctl daemon-reload
+  command: systemctl daemon-reload
+
+- name: restart samba
+  service:
+    state: restarted
+    name: "{{ item }}"
+  loop: "{{ takel_samba_services }}"
+
+- name: restart sshd
+  service:
+    state: restarted
+    name: sshd_samba
+
+- name: restart avahi
+  service:
+    state: restarted
+    name: avahi-daemon

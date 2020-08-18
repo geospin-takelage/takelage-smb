@@ -49,14 +49,14 @@ takel_samba_homes_create_mask: 0700
 takel_samba_homes_directory_mask: 0700
 takel_samba_homes_valid_users: '%S'
 
-takel_samaba_printers: false
-takel_samaba_printers_comment: All Printers
-takel_samaba_printers_browseable: no
-takel_samaba_printers_path: /var/spool/samba
-takel_samaba_printers_printable: yes
-takel_samaba_printers_guest_ok: no
-takel_samaba_printers_read_only: yes
-takel_samaba_printers_create_mask: 0700
+takel_samba_printers: false
+takel_samba_printers_comment: All Printers
+takel_samba_printers_browseable: no
+takel_samba_printers_path: /var/spool/samba
+takel_samba_printers_printable: yes
+takel_samba_printers_guest_ok: no
+takel_samba_printers_read_only: yes
+takel_samba_printers_create_mask: 0700
 
 takel_samba_print_windows: false
 takel_samba_print_windows_comment: Printer Drivers
@@ -75,7 +75,6 @@ takel_samba_timemachine_users: {}
 
 takel_samba_shares: []
 takel_samba_users: {}
-
 # smb.conf
 ##############################
 
@@ -98,3 +97,9 @@ takel_samba_avahi_rlimit_nproc: 3
 # avahi-daemon.conf
 ##############################
 
+takel_samba_group_id: 1700
+takel_samba_config_die: /etc/samba
+takel_samba_config_file: "{{ takel_samba_config_die }}/smb.conf"
+takel_samba_services:
+  - smbd
+  - nmbd

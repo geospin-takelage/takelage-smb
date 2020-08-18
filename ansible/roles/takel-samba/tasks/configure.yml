@@ -1,11 +1,11 @@
 ---
-- name: (configuration) create samba group
+- name: (configure) create samba group
   group:
     name: samba
-    gid: "{{ geospin_samba_first_group_id }}"
+    gid: "{{ takel_samba_group_id }}"
     state: present
 
-- name: (configuration) copy sudo file for samba group member
+- name: (configure) copy sudo file for samba group member
   copy:
     src: sudo_samba
     dest: /etc/sudoers.d/samba
@@ -13,25 +13,16 @@
 - name: (configure) copy samba config file
   template:
     src: smb.conf.j2
-    dest: "{{ geospin_samba_first_configuration }}"
+    dest: "{{ takel_samba_config_file }}"
     validate: 'testparm -s %s'
   notify: restart samba
-
-- name: (configure) include share specific config files
-  template:
-    src: "{{ item.include_file }}"
-    dest: "{{ samba_configuration_dir }}"
-    validate: 'testparm -s %s'
-  when: item.include_file is defined
-  notify: restart samba
-  loop: "{{ geospin_samba_shares }}"
 
 - name: (configure) ensure samba service(s) are started
   service:
     name: "{{ item }}"
     state: started
     enabled: true
-  loop: "{{ geospin_samba_services }}"
+  loop: "{{ takel_samba_services }}"
 
 - name: (configuration) copy config for avahi
   template:
