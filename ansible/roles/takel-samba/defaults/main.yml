@@ -3,8 +3,23 @@ takel_samba_timemachine: true
 
 takel_samba_deb_install_packages:
   - avahi-daemon
+  - openssh-server
   - samba
   - smbclient
+
+takel_samba_ssh_Port: 222
+
+takel_samba_systemd_service_list:
+  - name: sshd-samba
+    descripton: OpenBSD Secure Shell server for samba password self-service
+    type: exec
+    run_after:
+      - network.target
+      - auditd.service
+    wanted_by: multi-user.target
+    exec_start: >-
+       /usr/sbin/sshd -D -f /etc/ssh/sshd_samba $OPTIONS
+    exec_reload: /bin/kill -HUP $MAINPID
 
 ##############################
 # smb.conf
