@@ -1,0 +1,6 @@
+---
+- name: (systemd) create samba systemd service
+  include_role:
+    name: takel-systemd
+  vars:
+    takel_systemd_service_list: "{{ takel_samba_systemd_service_list }}"

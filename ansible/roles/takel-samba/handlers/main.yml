@@ -11,7 +11,7 @@
 - name: restart sshd
   service:
     state: restarted
-    name: sshd_samba
+    name: sshd-samba
 
 - name: restart avahi
   service:

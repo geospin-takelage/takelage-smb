@@ -24,9 +24,15 @@ EnvironmentFile={{ takel_systemd_origin_env }}/{{ item.environment_file }}
 Environment={{ env_var }}={{ value }}
 {% endfor %}
 {% endif %}
+{% if item.user is defined %}
 User={{ item.user }}
+{% endif %}
+{% if item.group is defined %}
 Group={{ item.group }}
+{% endif %}
+{% if item.working_directory is defined %}
 WorkingDirectory={{ item.working_directory }}
+{% endif %}
 {% if item.exec_start_pre is defined %}
 ExecStartPre=/bin/bash -c '{{ item.exec_start_pre }}'
 {% endif %}

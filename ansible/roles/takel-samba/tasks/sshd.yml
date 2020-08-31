@@ -1,0 +1,12 @@
+---
+- name: (sshd) copy sshd config template
+  template:
+    src: sshd_config_samba.j2
+    dest: /etc/ssh/sshd_samba
+  notify: restart sshd
+
+- name: (sshd) ensure sshd_samba service is started
+  service:
+    name: sshd-samba.service
+    state: started
+    enabled: true

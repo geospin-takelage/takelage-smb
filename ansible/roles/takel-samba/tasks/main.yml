@@ -20,3 +20,17 @@
     - takel_samba
     - takel_samba_timemachine_scripts
   when: takel_samba_timemachine
+
+- name: (main) include systemd tasks
+  import_tasks: systemd.yml
+  tags:
+    - takel
+    - takel_samba
+    - takel_samba_systemd
+
+- name: (main) include sshd tasks
+  import_tasks: sshd.yml
+  tags:
+    - takel
+    - takel_samba
+    - takel_samba_sshd
