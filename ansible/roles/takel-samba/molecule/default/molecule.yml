@@ -20,6 +20,28 @@ provisioner:
       interpreter_python: auto_silent
       stdout_callback: yaml
       bin_ansible_callbacks: true
+  inventory:
+    group_vars:
+      all:
+        # clear text password: myrootpassword
+        takel_users_root_password_hash: >-
+          {{ lookup('file', '../takel-users/molecule/support/myrootpassword_hash') }}
+        takel_users_users:
+          - myuser
+        takel_users_userdata:
+          myuser:
+            id: 1500
+            comment: My Testuser
+            groups:
+              - sudo
+            ssh: >-
+              {{ lookup('file', '../takel-users/molecule/support/myuserssh_key') }}
+            # clear text password: myuserpassword
+            password_hash: >-
+              {{ lookup('file', '../takel-users/molecule/support/myuserpassword_hash') }}
+        takel_users_gitlab_url: 'https://nonexisting_gitlab_server/'
+        takel_samba_users:
+          - myuser
 verifier:
   name: testinfra
   additional_files_or_dirs:

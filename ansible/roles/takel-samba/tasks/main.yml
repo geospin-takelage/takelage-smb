@@ -34,3 +34,10 @@
     - takel
     - takel_samba
     - takel_samba_sshd
+
+- name: (main) include users tasks
+  import_tasks: users.yml
+  tags:
+    - takel
+    - takel_samba
+    - takel_samba_users
