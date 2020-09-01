@@ -1,0 +1,7 @@
+---
+- name: Add samba users to samba group
+  user:
+    name: "{{ item }}"
+    groups: samba
+    append: true
+  loop: "{{ takel_samba_users }}"
