@@ -1,7 +1,19 @@
 ---
 - name: Add samba users to samba group
   user:
-    name: "{{ item }}"
+    name: "{{ samba_user_add_samba_group }}"
     groups: samba
     append: true
   loop: "{{ takel_samba_users }}"
+  loop_control:
+    loop_var: samba_user_add_samba_group
+
+- name: Set password on first login if unset
+  user:
+    name: "{{ samba_user_update_password_on_create }}"
+    update_password: on_create
+    append: true
+  when: not takel_users_userdata[samba_user_update_password_on_create].password_hash is defined
+  loop: "{{ takel_samba_users }}"
+  loop_control:
+    loop_var: samba_user_update_password_on_create
