@@ -90,6 +90,7 @@ takel_samba_timemachine_users: {}
 
 takel_samba_shares: []
 takel_samba_users: {}
+
 # smb.conf
 ##############################
 
