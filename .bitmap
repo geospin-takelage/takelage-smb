@@ -69,7 +69,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "ansible/roles/takel-anarchism"
     },
-    "takelage.ansible/ansible/roles/takel-base@0.0.15": {
+    "takelage.ansible/ansible/roles/takel-base@0.0.16": {
         "files": [
             {
                 "name": "README.bit",
@@ -656,7 +656,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "packer/templates/docker/takelbase/project"
     },
-    "takelage.rake/rake/ansible/docker/takelbase/project/lib@0.0.1": {
+    "takelage.rake/rake/ansible/docker/takelbase/project/lib@0.0.3": {
         "files": [
             {
                 "name": "README.bit",
@@ -728,7 +728,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "rake/ansible/docker/takelbase/roles/role"
     },
-    "takelage.rake/rake/dockerhub/takelbase/project/prod/registry@0.0.1": {
+    "takelage.rake/rake/dockerhub/takelbase/project/prod/registry@0.0.2": {
         "files": [
             {
                 "name": "README.bit",
@@ -764,7 +764,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "rake/git"
     },
-    "takelage.rake/rake/local/docker/takelbase/debug/prod@0.0.2": {
+    "takelage.rake/rake/local/docker/takelbase/debug/prod@0.0.3": {
         "files": [
             {
                 "name": "README.bit",
@@ -782,7 +782,7 @@
         "origin": "IMPORTED",
         "originallySharedDir": "rake/local/docker/takelbase/debug/prod"
     },
-    "takelage.rake/rake/local/docker/takelbase/lib@0.0.6": {
+    "takelage.rake/rake/local/docker/takelbase/lib@0.0.8": {
         "files": [
             {
                 "name": "README.bit",
