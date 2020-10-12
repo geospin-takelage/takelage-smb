@@ -2,12 +2,29 @@
 
 require 'rake'
 
+
+def read_docker_config(environments)
+  @docker_command, @docker_command_override = {}, {}
+  environments.each do |environment|
+    if @project[environment] && @project[environment]['docker_command_custom']
+      @docker_command[environment] = "\"#{@project[environment]['docker_command_custom']}\""
+      @docker_command_override[environment] = true
+    else
+      @docker_command[environment] = ''
+      @docker_command_override[environment] = false
+    end
+  end
+end
+
+read_docker_config(['dev', 'stage', 'prod'])
+
 @cmd_local_docker_takelbase_molecule_command = "cd ansible && bash -c '" \
   'TAKELAGE_DOCKER_CMD_OVERRIDE=%<docker_command_override>s ' \
   'TAKELAGE_DOCKER_CMD=%<docker_command>s ' \
   'TAKELAGE_DOCKER_MOUNT_PATH=%<docker_mount_path>s ' \
   'TAKELAGE_DOCKER_TTY=%<docker_tty>s ' \
   'TAKELAGE_PROJECT_ENV=%<project_environment>s ' \
+  "TAKELAGE_PROJECT_NAME=#{@project['name']} " \
   "molecule %<molecule_command>s --scenario-name local'"
 
 @cmd_local_docker_takelbase_molecule_features = \
